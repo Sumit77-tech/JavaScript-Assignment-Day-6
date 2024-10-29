@@ -1,0 +1,112 @@
+class DigitalLibrary {
+    constructor() {
+        this.books = [];
+    }
+    addBook(bookTitle) {
+        this.books.push(bookTitle);
+        console.log('Added: ' + "bookTitle");
+    }
+    removeBook(bookTitle) {
+        const index = this.books.indexOf(bookTitle);
+        if(index !== -1) {
+            this.books.splice(index, 1);
+            console.log('Removed: ' + "bookTitle");
+        } else {
+            console.log("bookTitle" + "not found in the library");
+        }
+    }
+    searchBook(bookTitle) {
+        const found = this.books.includes(bookTitle);
+        if(found) {
+            console.log("bookTitle" + "is in the library.");
+        } else {
+            console.log("bookTitle" + "is not in the library.");
+        }
+    }
+    findOccurences(bookTitle) {
+        const firstIndex = this.books.indexOf(bookTitle);
+        const lastIndex = this.books.lastIndexOf(bookTitle);
+        console.log("First occurence of" + "bookTitle: " + "firstIndex");
+        console.log("Last occurence of" + "bookTitle: " + "lastIndex");
+    }
+    extractSublist(startIndex, endIndex) {
+        const sublist = this.books.slice(startIndex, endIndex);
+        console.log("Extracted sublist: " + "sublist");
+        return sublist;
+    }
+    sortBooks() {
+        this.books.sort((a,b) => a.localeCompare(b));
+        console.log('Sorted books: ' + "this.books");
+    }
+    replaceBook(oldTitle, newTitle) {
+        const index = this.books.indexOf(oldTitle);
+        if(index !== -1) {
+            this.books.splice(index, 1, newTitle);
+            console.log('Replaced ' + "oldTitle with newTitle");
+        } else {
+            console.log("oldTitle not found in the library.");
+        }
+    }
+    joinBookTitles() {
+        const joinedTitles = this.books.joint(', ');
+        console.log("Book Titles: " + "joinedTitles");
+        return joinedTitles;
+    }
+}
+function main() {
+    const library = new DigitalLibrary();
+    const prompt = required('prompt-sync')();
+    while (true) {
+        console.log("\nLibrary Menu:");
+        console.log("1. Add Book");
+        console.log("2. Remove Book");
+        console.log("3. Search Book");
+        console.log("4. Find Book Occurences");
+        console.log("5. Extract Sublist of Books");
+        console.log("6. Sort Books");
+        console.log("7. Replace a Book");
+        console.log("8. Join Book Titles");
+        console.log("9. Exit");
+        const choice = prompt("Choose an option (1-9): ");
+        switch (choice) {
+            case '1':
+                const bookToAdd = prompt("Enter book title to add:");
+                library.addBook(bookToAdd);
+                break;
+            case '2':
+                const bookToRemove = prompt("Enter book title to remove:");
+                library.removeBook(bookToRemove);
+                break;
+            case '3':
+                const bookToSearch = prompt("Enter book title to search: ");
+                library.searchBook(bookToSearch);
+                break;
+            case '4':
+                const bookToFind = prompt("Enter book title to find occurences: ");
+                library.findOccurences(bookToFind);
+                break;
+            case '5':
+                const startIndex = parseInt(prompt("Enter start index for sublist: "), 10);
+                const endIndex = parseInt(prompt("Enter end index for sublist: "), 10);
+                library.extractSublist(startIndex, endIndex);
+                break;
+            case '6':
+                library.sortBooks();
+                break;
+            case '7':
+                const oldTitle = prompt("Enter book title to replace: ");
+                const newTitle = prompt("Enter new book title: ");
+                library.replaceBook(oldTitle, newTitle);
+                break;
+            case '8':
+                library.joinBookTitles();
+                break;
+            case '9':
+                console.log("Existing the program GoodBye!");
+                return;
+            default:
+                console.log("Invalid choice. PLease choose a valid option.");
+        }
+    }
+}
+main();
